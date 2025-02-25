@@ -2,7 +2,6 @@ package com.angelos.e_shop.app.dto.product;
 import lombok.*;
 
 @Getter
-@Setter
 @ToString
 public class GetProductDTO {
     private Long id;

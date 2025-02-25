@@ -3,20 +3,19 @@ package com.angelos.e_shop.app.controllers;
 import com.angelos.e_shop.app.domain.Order;
 import com.angelos.e_shop.app.repository.order.OrderRepository;
 import com.angelos.e_shop.app.services.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
+@RequiredArgsConstructor
+
 public class OrderController {
 
     private final OrderService orderService;
 
-
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
 
     // retrieve all orders
     @GetMapping

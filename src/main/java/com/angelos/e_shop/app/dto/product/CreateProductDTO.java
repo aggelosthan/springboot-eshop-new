@@ -3,7 +3,6 @@ package com.angelos.e_shop.app.dto.product;
 import lombok.*;
 
 @Getter
-@Setter
 @ToString
 @AllArgsConstructor
 

@@ -2,7 +2,6 @@ package com.angelos.e_shop.app.dto.customer;
 import lombok.*;
 
 @Getter
-@Setter
 @ToString
 @AllArgsConstructor
 

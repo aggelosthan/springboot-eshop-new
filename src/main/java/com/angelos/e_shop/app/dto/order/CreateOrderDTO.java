@@ -1,25 +1,40 @@
 package com.angelos.e_shop.app.dto.order;
-import lombok.*;
 
 import java.util.List;
 
 
-@Getter
-@ToString
-@AllArgsConstructor
+
 
 public class CreateOrderDTO {
+    public CreateOrderDTO(Long customerId, String message, List<Long> productIds, AddressDTO shippingAddress) {
+        this.customerId = customerId;
+        this.message = message;
+        this.productIds = productIds;
+        this.shippingAddress = shippingAddress;
+    }
 
-    @NonNull
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public List<Long> getProductIds() {
+        return productIds;
+    }
+
+    public AddressDTO getShippingAddress() {
+        return shippingAddress;
+    }
+
     private Long customerId;
 
-    @NonNull
     private String message;
 
-    @NonNull
     private List<Long> productIds;
 
-    @NonNull
     private AddressDTO shippingAddress;
 
 }

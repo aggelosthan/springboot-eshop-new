@@ -1,18 +1,28 @@
 package com.angelos.e_shop.app.dto.product;
 
-import lombok.*;
-
-@Getter
-@ToString
-@AllArgsConstructor
 
 public class CreateProductDTO {
-    @NonNull
+    public String getName() {
+        return name;
+    }
+
+    public CreateProductDTO(String name, Double price, String description) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     private String name;
 
-    @NonNull
     private Double price;
 
-    @NonNull
     private String description;
 }

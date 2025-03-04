@@ -1,6 +1,7 @@
 package com.angelos.e_shop.app.services;
 
 import com.angelos.e_shop.app.domain.Product;
+import com.angelos.e_shop.app.exception.ProductNotFound;
 import com.angelos.e_shop.app.repository.product.ProductRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -20,7 +21,11 @@ public class ProductService {
     }
 
     public Product getProductById(Long id) {
-        return productRepository.findById(id);
+        Product product = productRepository.findById(id);
+        if(product == null) {
+            throw new ProductNotFound("Product with ID " + id + " not found.");
+        }
+        return product;
     }
 
     public void saveProduct(Product product) {

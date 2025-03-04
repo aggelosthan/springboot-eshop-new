@@ -1,6 +1,7 @@
 package com.angelos.e_shop.app.services;
 
 import com.angelos.e_shop.app.domain.Customer;
+import com.angelos.e_shop.app.exception.CustomerNotFound;
 import com.angelos.e_shop.app.repository.customer.CustomerRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -20,7 +21,11 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(Long id) {
-        return customerRepository.findById(id);
+        Customer customer = customerRepository.findById(id);
+        if (customer == null) {
+            throw new CustomerNotFound("Customer with ID " + id + " not found.");
+        }
+        return customer;
     }
 
     public void saveCustomer(Customer customer) {

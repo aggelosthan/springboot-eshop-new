@@ -1,6 +1,7 @@
 package com.angelos.e_shop.app.services;
 
 import com.angelos.e_shop.app.domain.Order;
+import com.angelos.e_shop.app.exception.OrderNotFound;
 import com.angelos.e_shop.app.repository.order.OrderRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -20,8 +21,13 @@ public class OrderService {
     }
 
     public Order getOrderById(Long id) {
-        return orderRepository.findById(id);
+        Order order = orderRepository.findById(id);
+        if (order == null) {
+            throw new OrderNotFound("Order with ID " + id + " not found.");
+        }
+        return order;
     }
+
 
     public void saveOrder(Order order) {
         orderRepository.save(order);

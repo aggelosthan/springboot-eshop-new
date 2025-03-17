@@ -3,10 +3,12 @@ package com.angelos.e_shop.web.controller;
 import com.angelos.e_shop.domain.Order;
 import com.angelos.e_shop.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -40,5 +42,39 @@ public class OrderController {
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<Order>> getOrdersByCustomerId(@PathVariable Long customerId) {
+        return ResponseEntity.ok(orderService.getOrdersByCustomerId(customerId));
+    }
+
+    @GetMapping("/date-range")
+    public ResponseEntity<List<Order>> getOrdersByDateRange(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+        return ResponseEntity.ok(orderService.getOrdersByDateRange(startDate, endDate));
+    }
+
+    @GetMapping("/amount-greater-than/{amount}")
+    public ResponseEntity<List<Order>> getOrdersWithAmountGreaterThan(@PathVariable double amount) {
+        return ResponseEntity.ok(orderService.getOrdersWithAmountGreaterThan(amount));
+    }
+
+    @GetMapping("/customer-email/{email}")
+    public ResponseEntity<List<Order>> getOrdersByCustomerEmail(@PathVariable String email) {
+        return ResponseEntity.ok(orderService.getOrdersByCustomerEmail(email));
+    }
+
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<List<Order>> getOrdersContainingProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok(orderService.getOrdersContainingProduct(productId));
+    }
+
+    @GetMapping("/amount-range")
+    public ResponseEntity<List<Order>> getOrdersWithAmountInRange(
+            @RequestParam double minAmount,
+            @RequestParam double maxAmount) {
+        return ResponseEntity.ok(orderService.getOrdersWithAmountInRange(minAmount, maxAmount));
     }
 } 

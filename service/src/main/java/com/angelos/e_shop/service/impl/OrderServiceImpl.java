@@ -7,6 +7,7 @@ import com.angelos.e_shop.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,5 +46,35 @@ public class OrderServiceImpl implements OrderService {
             throw new OrderNotFound(id);
         }
         orderRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Order> getOrdersByCustomerId(Long customerId) {
+        return orderRepository.findByCustomerId(customerId);
+    }
+
+    @Override
+    public List<Order> getOrdersByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        return orderRepository.findByOrderDateBetween(startDate, endDate);
+    }
+
+    @Override
+    public List<Order> getOrdersWithAmountGreaterThan(double amount) {
+        return orderRepository.findOrdersWithAmountGreaterThan(amount);
+    }
+
+    @Override
+    public List<Order> getOrdersByCustomerEmail(String email) {
+        return orderRepository.findByCustomerEmail(email);
+    }
+
+    @Override
+    public List<Order> getOrdersContainingProduct(Long productId) {
+        return orderRepository.findOrdersContainingProduct(productId);
+    }
+
+    @Override
+    public List<Order> getOrdersWithAmountInRange(double minAmount, double maxAmount) {
+        return orderRepository.findOrdersWithAmountInRange(minAmount, maxAmount);
     }
 } 

@@ -9,4 +9,8 @@ public interface ProductService {
     Product createProduct(Product product);
     Product updateProduct(Long id, Product product);
     void deleteProduct(Long id);
+    List<Product> getAvailableProductsInPriceRange(double minPrice, double maxPrice);
+    List<Product> getLowStockProducts(int threshold);
+    List<Product> searchProductsByNameAndPrice(String searchTerm, double maxPrice);
+    List<Product> getLowStockProductsInPriceRange(int threshold, double minPrice, double maxPrice);
 } 

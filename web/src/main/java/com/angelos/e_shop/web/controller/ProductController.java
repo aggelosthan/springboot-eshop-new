@@ -41,4 +41,31 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/price-range")
+    public ResponseEntity<List<Product>> getAvailableProductsInPriceRange(
+            @RequestParam double minPrice,
+            @RequestParam double maxPrice) {
+        return ResponseEntity.ok(productService.getAvailableProductsInPriceRange(minPrice, maxPrice));
+    }
+
+    @GetMapping("/low-stock/{threshold}")
+    public ResponseEntity<List<Product>> getLowStockProducts(@PathVariable int threshold) {
+        return ResponseEntity.ok(productService.getLowStockProducts(threshold));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProductsByNameAndPrice(
+            @RequestParam String searchTerm,
+            @RequestParam double maxPrice) {
+        return ResponseEntity.ok(productService.searchProductsByNameAndPrice(searchTerm, maxPrice));
+    }
+
+    @GetMapping("/low-stock-price-range")
+    public ResponseEntity<List<Product>> getLowStockProductsInPriceRange(
+            @RequestParam int threshold,
+            @RequestParam double minPrice,
+            @RequestParam double maxPrice) {
+        return ResponseEntity.ok(productService.getLowStockProductsInPriceRange(threshold, minPrice, maxPrice));
+    }
 } 

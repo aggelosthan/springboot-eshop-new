@@ -46,4 +46,24 @@ public class ProductServiceImpl implements ProductService {
         }
         productRepository.deleteById(id);
     }
+
+    @Override
+    public List<Product> getAvailableProductsInPriceRange(double minPrice, double maxPrice) {
+        return productRepository.findAvailableProductsInPriceRange(minPrice, maxPrice);
+    }
+
+    @Override
+    public List<Product> getLowStockProducts(int threshold) {
+        return productRepository.findLowStockProducts(threshold);
+    }
+
+    @Override
+    public List<Product> searchProductsByNameAndPrice(String searchTerm, double maxPrice) {
+        return productRepository.searchProductsByNameAndPrice(searchTerm, maxPrice);
+    }
+
+    @Override
+    public List<Product> getLowStockProductsInPriceRange(int threshold, double minPrice, double maxPrice) {
+        return productRepository.findLowStockProductsInPriceRange(threshold, minPrice, maxPrice);
+    }
 } 

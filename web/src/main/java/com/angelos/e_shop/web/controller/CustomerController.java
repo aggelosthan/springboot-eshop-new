@@ -2,12 +2,13 @@ package com.angelos.e_shop.web.controller;
 
 import com.angelos.e_shop.domain.Customer;
 import com.angelos.e_shop.service.CustomerService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -41,5 +42,27 @@ public class CustomerController {
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Customer> getCustomerByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(customerService.getCustomerByEmail(email));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Customer>> findCustomersByName(@RequestParam String name) {
+        return ResponseEntity.ok(customerService.findCustomersByName(name));
+    }
+
+    @GetMapping("/orders-above-amount/{amount}")
+    public ResponseEntity<List<Customer>> findCustomersWithOrdersAboveAmount(@PathVariable double amount) {
+        return ResponseEntity.ok(customerService.findCustomersWithOrdersAboveAmount(amount));
+    }
+
+    @GetMapping("/orders-in-date-range")
+    public ResponseEntity<List<Customer>> findCustomersWithOrdersInDateRange(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+        return ResponseEntity.ok(customerService.findCustomersWithOrdersInDateRange(startDate, endDate));
     }
 } 

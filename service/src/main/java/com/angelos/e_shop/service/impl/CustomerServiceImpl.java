@@ -7,6 +7,7 @@ import com.angelos.e_shop.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,5 +46,26 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerNotFound(id);
         }
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public Customer getCustomerByEmail(String email) {
+        return customerRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomerNotFound("Customer not found with email: " + email));
+    }
+
+    @Override
+    public List<Customer> findCustomersByName(String name) {
+        return customerRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    @Override
+    public List<Customer> findCustomersWithOrdersAboveAmount(double amount) {
+        return customerRepository.findCustomersWithOrdersAboveAmount(amount);
+    }
+
+    @Override
+    public List<Customer> findCustomersWithOrdersInDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        return customerRepository.findCustomersWithOrdersInDateRange(startDate, endDate);
     }
 } 
